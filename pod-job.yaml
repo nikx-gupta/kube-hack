@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-finite
+spec:
+  template:
+    metadata:
+      labels:
+        env: DEV
+        name: app-job
+    spec:
+      containers:
+        - name: pod-job
+          image: busybox
+          command:
+            - /bin/sh
+            - -c
+            - date; sleep 20; echo "Bye"
+      restartPolicy: OnFailure
+        

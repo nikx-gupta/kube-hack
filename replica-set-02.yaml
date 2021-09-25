@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: repl-nginx
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 9
+      maxUnavailable: 3
+  selector:
+    matchLabels:
+      name: nginx-app
+  template:
+    metadata:
+      labels:
+        name: nginx-app
+    spec:
+      containers:
+        - name: pod-nginx-app
+          image: nginx
+          ports:
+            - containerPort: 80
+        

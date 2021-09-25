@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-custom-command
+spec:
+  containers:
+    - name: pod-echo-content
+      image: ubuntu
+      command:
+        - /bin/bash
+        - -ec
+        - while :; do echo 'this is echo pod'; sleep 5; done
