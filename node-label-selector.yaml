@@ -1,0 +1,14 @@
+# run command $ kubectl label node <node name> env=dev
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-label-selector
+  labels:
+    env: dev
+spec:
+  containers:
+    - name: container-nginx
+      image: nginx
+  nodeSelector:
+    env: dev
+      
