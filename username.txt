@@ -1,0 +1,2 @@
+SUB_USER=nikx
+SUB_PASS=demo
