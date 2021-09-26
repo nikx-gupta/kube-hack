@@ -14,7 +14,7 @@ spec:
         memory: "128Mi"
         cpu: "100m"
       limits:
-        memory: "1024Mi"
+        memory: "256Mi"
         cpu: "200m"
   - name: wp
     image: wordpress
