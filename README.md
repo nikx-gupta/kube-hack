@@ -7,6 +7,6 @@
 
 
 - Find Secrets and Cert in Below location inside each Pod
-  ```bash```
+  ```bash
   $ ls -al /var/run/secrets/kubernetes.io/serviceaccount/
   ```
