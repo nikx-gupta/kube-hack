@@ -1,0 +1,30 @@
+apiVersion: apps/v1         
+kind: Deployment                  
+metadata:
+  name: kubia  
+  labels:
+    app: kubia                   
+spec:
+  # After deployment run command $ kubectl set image deploy kubia nodejs=luksa/kubia:v3
+  # Pods will deploy but will start failing after some time
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - image: luksa/kubia:v2
+        name: nodejs
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
