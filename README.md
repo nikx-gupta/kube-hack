@@ -7,10 +7,11 @@
 3. with_kube_proxy_container
     - Run a side car container for kube proxy to access API server
 
-- Find Token and Cert in Below location inside each Pod
+4. Find Token and Cert in Below location inside each Pod
   ```bash
   $ ls -al /var/run/secrets/kubernetes.io/serviceaccount/
   ```
+
 
 Kubernetes API Client Libraries
 1. Golang client—https://github.com/kubernetes/client-go
