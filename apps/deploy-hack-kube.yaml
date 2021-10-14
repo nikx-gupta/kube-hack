@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: container-hackube
-        image: nikxgupta/hackube:v4
+        image: nikxgupta/hackube:v1.14
         ports:
           - containerPort: 8080
 ---

@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"hackube/env"
+	"hackube/pods"
+)
 
 func main() {
 	StartAPI()
@@ -16,7 +20,8 @@ func StartAPI() {
 		c.Writer.WriteString("ok")
 	})
 
-	AddEnvRoutes(router)
+	env.RegisterRoutes(router)
+	pods.RegisterPodRoutes(router)
 
 	router.Run(":8080")
 }
