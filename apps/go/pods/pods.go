@@ -5,23 +5,21 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"hackube/env"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
+	"os"
 	"strings"
 )
 
-var config *rest.Config
-var cs *kubernetes.Clientset
+var currentPod *v1.Pod
+var currentPodName string
 
 func init() {
+	currentPodName = os.Getenv("HOSTNAME")
 	var err error
-	config, err = rest.InClusterConfig()
-	if err != nil {
-		panic(err)
-	}
+	currentPod, err = env.KubeClientSet.CoreV1().Pods(env.ReadNamespace()).
+		Get(context.TODO(), currentPodName, metav1.GetOptions{})
 
-	cs, err = kubernetes.NewForConfig(config)
 	if err != nil {
 		panic(err)
 	}
@@ -30,11 +28,18 @@ func init() {
 func RegisterPodRoutes(router *gin.Engine) {
 	router.GET("/pods", Pods)
 	router.GET("/pod/:podName/containers", Containers)
+
+	router.GET("/pod/current", Current)
+}
+
+func Current(c *gin.Context) {
+	data, _ := json.Marshal(currentPod)
+	c.Writer.Write(data)
 }
 
 func Pods(c *gin.Context) {
 	ns := strings.Replace(string(env.ReadNamespace()), "\n", "", 1)
-	pl, err := cs.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{})
+	pl, err := env.KubeClientSet.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -50,7 +55,7 @@ func Pods(c *gin.Context) {
 
 func Containers(c *gin.Context) {
 	pod_name := c.Param("podName")
-	pl, err := cs.CoreV1().Pods(env.ReadNamespace()).Get(context.TODO(), pod_name, metav1.GetOptions{})
+	pl, err := env.KubeClientSet.CoreV1().Pods(env.ReadNamespace()).Get(context.TODO(), pod_name, metav1.GetOptions{})
 	if err != nil {
 		panic(err)
 	}

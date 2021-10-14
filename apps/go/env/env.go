@@ -3,6 +3,8 @@ package env
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"os"
 	"os/exec"
 	"strings"
@@ -24,6 +26,21 @@ const Path_svc_acct = "/var/run/secrets/kubernetes.io/serviceaccount"
 const ApiUrl = "https://localhost:16443"
 
 var ns string
+var KubeConfig *rest.Config
+var KubeClientSet *kubernetes.Clientset
+
+func init() {
+	var err error
+	KubeConfig, err = rest.InClusterConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	KubeClientSet, err = kubernetes.NewForConfig(KubeConfig)
+	if err != nil {
+		panic(err)
+	}
+}
 
 func HostName(c *gin.Context) {
 	hst, _ := os.Hostname()
