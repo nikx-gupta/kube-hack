@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func RegisterRoutes(router *gin.Engine) {
@@ -16,10 +17,13 @@ func RegisterRoutes(router *gin.Engine) {
 	router.GET("/env/secrets", Secrets)
 	router.GET("/env/ns", Namespace)
 	router.GET("/env/token", Token)
+	router.GET("/env/cert", Cert)
 }
 
 const Path_svc_acct = "/var/run/secrets/kubernetes.io/serviceaccount"
 const ApiUrl = "https://localhost:16443"
+
+var ns string
 
 func HostName(c *gin.Context) {
 	hst, _ := os.Hostname()
@@ -27,17 +31,26 @@ func HostName(c *gin.Context) {
 }
 
 func Namespace(c *gin.Context) {
-	c.Writer.Write(ReadNamespace())
+	c.Writer.WriteString(ReadNamespace())
 }
 
-func ReadNamespace() []byte {
-	data, _ := os.ReadFile(fmt.Sprintf("%s/namespace", Path_svc_acct))
-	return data
+func ReadNamespace() string {
+	if ns == "" {
+		data, _ := os.ReadFile(fmt.Sprintf("%s/namespace", Path_svc_acct))
+		ns = strings.Replace(string(data), "\n", "", 1)
+	}
+
+	return ns
 }
 
 func ReadToken() []byte {
 	data, _ := os.ReadFile(fmt.Sprintf("%s/token", Path_svc_acct))
 	return data
+}
+
+func Cert(c *gin.Context) {
+	data, _ := os.ReadFile(fmt.Sprintf("%s/ca.crt", Path_svc_acct))
+	c.Writer.Write(data)
 }
 
 func Token(c *gin.Context) {
