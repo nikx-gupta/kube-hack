@@ -7,9 +7,9 @@ metadata:
 spec:
   containers:
     - name: container-kube-app
-      image: devignitelab.jfrog.io/labdocker/kube-app:v1
+      image: nikxgupta/postgresapi:v3
       ports:
-        - containerPort: 80
+        - containerPort: 2112
 ---
 apiVersion: v1
 kind: Service
@@ -22,7 +22,7 @@ spec:
   selector:
       app: kube-app
   ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 32002
+    - port: 9091
+      targetPort: 2112
+      nodePort: 32005
 
