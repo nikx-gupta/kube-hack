@@ -35,16 +35,26 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/dotnet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/kube-proxy" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/kube-proxy" />
+      <recent name="$PROJECT_DIR$/apps/gitsync-controller" />
       <recent name="$PROJECT_DIR$/apps/dotnet" />
       <recent name="$PROJECT_DIR$/apps" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.gitsync">
+    <configuration name="gitsync" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="kube-hack" />
+      <working_directory value="$PROJECT_DIR$/apps/gitsync-controller" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/apps/gitsync-controller/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="kube-hack" />
       <working_directory value="$PROJECT_DIR$" />
@@ -57,6 +67,10 @@
       <filePath value="$PROJECT_DIR$/apps/go/main.go" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Go Build.go build main.go" />
+      <item itemvalue="Go Build.gitsync" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

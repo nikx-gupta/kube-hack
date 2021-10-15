@@ -1,0 +1,6 @@
+apiVersion: "nikx.extensions.io/v1"
+kind: GitSync
+metadata:
+  name: object-gitsync
+spec:
+  gitRepo: "something"
